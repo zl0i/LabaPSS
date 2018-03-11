@@ -55,13 +55,14 @@ void MainWindow::on_pushButton_clicked()
     qreal Gprm = 20*log10(10*g*pow(ui->spinBox_10->value(), 2)/lamda_dw);
     ui->label_58->setText("Gпрм = "+QString::number(Gprm) + " дБ");
 
-    qreal Rpdr = (L0p+Ldop+k*Tsumm*ui->spinBox_11->value()*pow(10, 6)+6+ui->doubleSpinBox_7->value()+70)/(Gprd*ui->spinBox_7->value()/100.0);
-    Rpdr = Rpdr*10;
+    int t =  20*log10(k*Tsumm*ui->spinBox_11->value()*pow(10, 6));
+    qreal Rpdr = (L0p+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprd*ui->spinBox_7->value()/100.0);
+    //Rpdr = Rpdr*10;
     ui->label_60->setText("Pпрд = " + QString::number(Rpdr) + " Вт");
 
     qreal last = 0;
     QPen pen;
-    pen.setColor(Qt::red);
+    pen.setColor(Qt::blue);
     pen.setCapStyle(Qt::RoundCap);
     pen.setStyle(Qt::DashLine);
     pen.setWidth(2);
@@ -78,11 +79,13 @@ void MainWindow::on_pushButton_clicked()
     pen.setStyle(Qt::SolidLine);
     pen.setJoinStyle(Qt::RoundJoin);
     pen.setWidth(3);
+
     QLineSeries *series_up = new QLineSeries();
     series_up->setPen(pen);
     series_up->setName("Уровень сигнала");
     series_up->append(0, 0);
     series_up->append(3, Rpdr);
+
     last  = Rpdr * ui->spinBox_7->value()/100;// Lафт
     series_up->append(6, Rpdr * ui->spinBox_7->value()/100);
     last += Gprd;
