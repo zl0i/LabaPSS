@@ -134,14 +134,20 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_comboBox_currentIndexChanged(int index)
 {
     if(index == 0) {
+        ui->doubleSpinBox->setValue(0);
+        ui->doubleSpinBox_2->setValue(0);
+        ui->doubleSpinBox_3->setValue(0);
+        ui->doubleSpinBox_4->setValue(0);
+        ui->doubleSpinBox_5->setValue(0);
+        ui->doubleSpinBox_6->setValue(0);
         ui->spinBox->setValue(0);
         ui->spinBox_2->setValue(0);
         ui->doubleSpinBox_7->setValue(0);
         ui->spinBox_7->setValue(1);
         ui->spinBox_14->setValue(1);
         ui->spinBox_11->setValue(0);
-        ui->spinBox_3->setValue(0);
-        ui->spinBox_10->setValue(0);
+        ui->spinBox_3->setValue(1);
+        ui->spinBox_10->setValue(1);
         ui->spinBox_20->setValue(0);
         ui->spinBox_21->setValue(0);
         ui->spinBox_22->setValue(1);
@@ -170,31 +176,47 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
         return;
     }
     if(index == 2) {
-        ui->spinBox->setValue(12);
-        ui->spinBox_2->setValue(13);
-        ui->doubleSpinBox_7->setValue(15.5);
-        ui->spinBox_7->setValue(92);
-        ui->spinBox_14->setValue(92);
-        ui->spinBox_11->setValue(38);
-        ui->spinBox_3->setValue(12);
-        ui->spinBox_10->setValue(14);
-        ui->spinBox_20->setValue(7);
-        ui->spinBox_21->setValue(47);
-        ui->spinBox_22->setValue(89);
+        ui->doubleSpinBox->setValue(50.0);
+        ui->doubleSpinBox_2->setValue(46.0);
+        ui->doubleSpinBox_3->setValue(75.0);
+        ui->doubleSpinBox_4->setValue(46.0);
+        ui->doubleSpinBox_5->setValue(75.0);
+        ui->doubleSpinBox_6->setValue(44.0);
+        ui->spinBox->setValue(14);
+        ui->spinBox_2->setValue(11);
+        ui->doubleSpinBox_7->setValue(17.1);
+        ui->spinBox_7->setValue(91);
+        ui->spinBox_14->setValue(87);
+        ui->spinBox_17->setValue(34);
+        ui->spinBox_18->setValue(32);
+        ui->spinBox_11->setValue(35);
+        ui->spinBox_3->setValue(9);
+        ui->spinBox_10->setValue(5);
+        ui->spinBox_20->setValue(6);
+        ui->spinBox_21->setValue(53);
+        ui->spinBox_22->setValue(91);
         return;
     }
     if(index == 3) {
-        ui->spinBox->setValue(12);
+        ui->doubleSpinBox->setValue(53.0);
+        ui->doubleSpinBox_2->setValue(48.0);
+        ui->doubleSpinBox_3->setValue(77.0);
+        ui->doubleSpinBox_4->setValue(41.0);
+        ui->doubleSpinBox_5->setValue(77.0);
+        ui->doubleSpinBox_6->setValue(48.0);
+        ui->spinBox->setValue(15);
         ui->spinBox_2->setValue(13);
-        ui->doubleSpinBox_7->setValue(15.5);
-        ui->spinBox_7->setValue(92);
-        ui->spinBox_14->setValue(92);
-        ui->spinBox_11->setValue(38);
-        ui->spinBox_3->setValue(12);
-        ui->spinBox_10->setValue(14);
-        ui->spinBox_20->setValue(7);
-        ui->spinBox_21->setValue(47);
-        ui->spinBox_22->setValue(89);
+        ui->doubleSpinBox_7->setValue(15.00);
+        ui->spinBox_7->setValue(94);
+        ui->spinBox_14->setValue(84);
+        ui->spinBox_17->setValue(32);
+        ui->spinBox_18->setValue(35);
+        ui->spinBox_11->setValue(37);
+        ui->spinBox_3->setValue(11);
+        ui->spinBox_10->setValue(6);
+        ui->spinBox_20->setValue(8);
+        ui->spinBox_21->setValue(49);
+        ui->spinBox_22->setValue(95);
         return;
     }
 }

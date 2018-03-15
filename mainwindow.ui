@@ -90,7 +90,7 @@
       <rect>
        <x>10</x>
        <y>80</y>
-       <width>202</width>
+       <width>208</width>
        <height>22</height>
       </rect>
      </property>
@@ -103,7 +103,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_7"/>
+       <widget class="QDoubleSpinBox" name="doubleSpinBox_7">
+        <property name="minimum">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_14">
@@ -234,7 +241,7 @@
       <rect>
        <x>10</x>
        <y>20</y>
-       <width>238</width>
+       <width>250</width>
        <height>22</height>
       </rect>
      </property>
@@ -254,6 +261,15 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimum">
+         <double>0.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>359.000000000000000</double>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -271,6 +287,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximum">
+         <double>359.899999999999977</double>
+        </property>
        </widget>
       </item>
       <item>
@@ -287,7 +306,7 @@
       <rect>
        <x>10</x>
        <y>80</y>
-       <width>286</width>
+       <width>292</width>
        <height>22</height>
       </rect>
      </property>
@@ -300,7 +319,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_18"/>
+       <widget class="QSpinBox" name="spinBox_18">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>120</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_40">
@@ -316,7 +342,7 @@
       <rect>
        <x>10</x>
        <y>140</y>
-       <width>248</width>
+       <width>254</width>
        <height>22</height>
       </rect>
      </property>
@@ -336,6 +362,9 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="maximum">
+         <number>150</number>
+        </property>
        </widget>
       </item>
       <item>
@@ -352,7 +381,7 @@
       <rect>
        <x>10</x>
        <y>170</y>
-       <width>223</width>
+       <width>229</width>
        <height>22</height>
       </rect>
      </property>
@@ -371,6 +400,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>150</number>
         </property>
        </widget>
       </item>
@@ -430,7 +465,7 @@
       <rect>
        <x>10</x>
        <y>50</y>
-       <width>267</width>
+       <width>273</width>
        <height>22</height>
       </rect>
      </property>
@@ -443,7 +478,14 @@
        </widget>
       </item>
       <item>
-       <widget class="QSpinBox" name="spinBox_17"/>
+       <widget class="QSpinBox" name="spinBox_17">
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>120</number>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QLabel" name="label_38">
@@ -478,6 +520,12 @@
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimum">
+         <number>1</number>
+        </property>
+        <property name="maximum">
+         <number>200</number>
         </property>
        </widget>
       </item>
@@ -575,6 +623,12 @@
             <verstretch>0</verstretch>
            </sizepolicy>
           </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>120</number>
+          </property>
          </widget>
         </item>
         <item>
@@ -602,6 +656,12 @@
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>1000</number>
           </property>
          </widget>
         </item>
@@ -766,6 +826,13 @@
          <widget class="QLabel" name="label_61">
           <property name="text">
            <string>Pпрм = </string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_9">
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>
