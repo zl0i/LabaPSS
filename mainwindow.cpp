@@ -6,18 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->spinBox->setValue(12);
-    ui->spinBox_2->setValue(13);
-    ui->doubleSpinBox_7->setValue(15.5);
-    ui->spinBox_7->setValue(92);
-    ui->spinBox_14->setValue(92);
-    ui->spinBox_4->setValue(34);
-    ui->spinBox_11->setValue(38);
-    ui->spinBox_3->setValue(12);
-    ui->spinBox_10->setValue(14);
-    ui->spinBox_20->setValue(7);
-    ui->spinBox_21->setValue(47);
-    ui->spinBox_22->setValue(89);
+
 }
 
 MainWindow::~MainWindow()
@@ -37,9 +26,13 @@ void MainWindow::on_pushButton_clicked()
 
     qreal lamda_up = 3*pow(10, 8)/(ui->spinBox->value()*pow(10, 9));
 
-    qreal L0p = 20*log10(2*pi * d_up*1000/lamda_up);
-    ui->label_52->setText("l0р = -"+QString::number(L0p)+" дБ");
+    qreal L0up = 20*log10(2*pi * d_up*1000/lamda_up);
+    ui->label_52->setText("l0uр = -"+QString::number(L0up)+" дБ");
+
     qreal lamda_dw = 3*pow(10, 8)/(ui->spinBox_2->value()*pow(10, 9));
+
+    qreal L0dw = 20*log10(2*pi * d_dw*1000/lamda_dw);
+    ui->label_54->setText("l0dw = -"+QString::number(L0dw)+" дБ");
 
     qreal Ldop = (Lad + Lpd + Lrd);
     ui->label_53->setText("Lдоп = -"+QString::number(Ldop)+ " дБ");
@@ -47,7 +40,6 @@ void MainWindow::on_pushButton_clicked()
     qreal Tsh = (ui->spinBox_20->value()-1.0)*T0;
     qreal n = ui->spinBox_22->value()/100.0;
     qreal Tsumm = ui->spinBox_21->value() + (T0*((1.0-n)/n)) + Tsh/n;
-    ui->label_54->setText("Ts = "+QString::number(Tsumm) + " K");
 
     qreal Gprd = 20*log10(10*g*pow(ui->spinBox_3->value(), 2)/lamda_up);
     ui->label_55->setText("Gпрд = "+QString::number(Gprd) + " дБ");
@@ -56,13 +48,12 @@ void MainWindow::on_pushButton_clicked()
     ui->label_58->setText("Gпрм = "+QString::number(Gprm) + " дБ");
 
     int t =  20*log10(k*Tsumm*ui->spinBox_11->value()*pow(10, 6));
-    qreal Rpdr = (L0p+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprd*ui->spinBox_7->value()/100.0);
-    //Rpdr = Rpdr+4;
+    qreal Rpdr = (L0up+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprd*ui->spinBox_7->value()/100.0);
     ui->label_60->setText("Pпрд = " + QString::number(Rpdr) + " Вт");
 
-     qreal Rprm = (L0p+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprm*ui->spinBox_14->value()/100.0);
-    qDebug() << Rprm;
-    qreal last = 0;
+    qreal Rprm = (L0dw+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprm*ui->spinBox_14->value()/100.0);
+    ui->label_61->setText("Pпрд = " + QString::number(Rprm) + " Вт");
+
     QPen pen;
     pen.setColor(Qt::red);
     pen.setCapStyle(Qt::RoundCap);
@@ -71,8 +62,8 @@ void MainWindow::on_pushButton_clicked()
 
 
     QLineSeries *line = new QLineSeries();
-    line->append(0, -90);
-    line->append(31, -90);
+    line->append(0, -150);
+    line->append(31, -150);
     line->setPen(pen);
     line->setName("Граница");
 
@@ -88,11 +79,12 @@ void MainWindow::on_pushButton_clicked()
     series_up->append(0, 0);
     series_up->append(3, Rpdr);
 
+    qreal last = 0;
     last  = Rpdr * ui->spinBox_7->value()/100;// Lафт
     series_up->append(6, Rpdr * ui->spinBox_7->value()/100);
     last += Gprd;
     series_up->append(7, last);
-    last = last - (L0p + Ldop);
+    last = last - (L0up + Ldop);
     series_up->append(10, last);
     last += ui->spinBox_17->value();
     series_up->append(11, last);
@@ -104,7 +96,7 @@ void MainWindow::on_pushButton_clicked()
     series_up->append(20, last);
     last += ui->spinBox_18->value();
     series_up->append(21, last);
-    last -= (L0p + Ldop);
+    last -= (L0dw + Ldop);
     series_up->append(24, last);
     last += Gprm;
     series_up->append(25, last);
@@ -127,23 +119,6 @@ void MainWindow::on_pushButton_clicked()
 
 
 
-
-
-
-
-    QLineSeries *series_dw = new QLineSeries();
-    //series_dw->setColor(Qt::blue);
-    series_dw->setName("Уровень сигнала");
-
-    QChart *dw = new QChart();
-    dw->setTitle("Диаграмма уровней мощности сигнала вниз");
-    //dw->addSeries(line);
-    dw->addSeries(series_dw);
-    dw->createDefaultAxes();
-    dw->axisX()->setRange(0, 14);
-    dw->axisY()->setRange(-200, 200);
-
-
     QDialog *dlg = new QDialog(this);
     dlg->setWindowTitle("График");
     QVBoxLayout *layout = new QVBoxLayout();
@@ -151,9 +126,75 @@ void MainWindow::on_pushButton_clicked()
     view = new QChartView(up);
     view->chart()->setAnimationOptions(QChart::AllAnimations);
     layout->addWidget(view);
-    //view = new QChartView(dw);
-    //layout->addWidget(view);
     dlg->setLayout(layout);
     dlg->resize(1000, 500);
-    dlg->exec();
+    dlg->show();
+}
+
+void MainWindow::on_comboBox_currentIndexChanged(int index)
+{
+    if(index == 0) {
+        ui->spinBox->setValue(0);
+        ui->spinBox_2->setValue(0);
+        ui->doubleSpinBox_7->setValue(0);
+        ui->spinBox_7->setValue(1);
+        ui->spinBox_14->setValue(1);
+        ui->spinBox_11->setValue(0);
+        ui->spinBox_3->setValue(0);
+        ui->spinBox_10->setValue(0);
+        ui->spinBox_20->setValue(0);
+        ui->spinBox_21->setValue(0);
+        ui->spinBox_22->setValue(1);
+        return;
+    }
+    if(index == 1) {
+        ui->doubleSpinBox->setValue(51.0);
+        ui->doubleSpinBox_2->setValue(45.0);
+        ui->doubleSpinBox_3->setValue(79.0);
+        ui->doubleSpinBox_4->setValue(43.0);
+        ui->doubleSpinBox_5->setValue(79.0);
+        ui->doubleSpinBox_6->setValue(45.0);
+        ui->spinBox->setValue(12);
+        ui->spinBox_2->setValue(13);
+        ui->doubleSpinBox_7->setValue(15.5);
+        ui->spinBox_7->setValue(92);
+        ui->spinBox_14->setValue(92);
+        ui->spinBox_17->setValue(36);
+        ui->spinBox_18->setValue(31);
+        ui->spinBox_11->setValue(38);
+        ui->spinBox_3->setValue(12);
+        ui->spinBox_10->setValue(14);
+        ui->spinBox_20->setValue(7);
+        ui->spinBox_21->setValue(47);
+        ui->spinBox_22->setValue(89);
+        return;
+    }
+    if(index == 2) {
+        ui->spinBox->setValue(12);
+        ui->spinBox_2->setValue(13);
+        ui->doubleSpinBox_7->setValue(15.5);
+        ui->spinBox_7->setValue(92);
+        ui->spinBox_14->setValue(92);
+        ui->spinBox_11->setValue(38);
+        ui->spinBox_3->setValue(12);
+        ui->spinBox_10->setValue(14);
+        ui->spinBox_20->setValue(7);
+        ui->spinBox_21->setValue(47);
+        ui->spinBox_22->setValue(89);
+        return;
+    }
+    if(index == 3) {
+        ui->spinBox->setValue(12);
+        ui->spinBox_2->setValue(13);
+        ui->doubleSpinBox_7->setValue(15.5);
+        ui->spinBox_7->setValue(92);
+        ui->spinBox_14->setValue(92);
+        ui->spinBox_11->setValue(38);
+        ui->spinBox_3->setValue(12);
+        ui->spinBox_10->setValue(14);
+        ui->spinBox_20->setValue(7);
+        ui->spinBox_21->setValue(47);
+        ui->spinBox_22->setValue(89);
+        return;
+    }
 }
