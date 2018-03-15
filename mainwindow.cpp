@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowTitle("Лабораторная работа №6");
 
 }
 
@@ -110,12 +111,20 @@ void MainWindow::on_pushButton_clicked()
     up->addSeries(line);
     up->addSeries(series_up);
     up->createDefaultAxes();
+
     QValueAxis *axisX = new QValueAxis;
     axisX->setTickCount(15);
     axisX->setRange(0, 31);
     axisX->setLabelsVisible(false);
-    up->setAxisX(axisX);
-    up->axisY()->setRange(-200, 200);
+    up->setAxisX(axisX, series_up);
+    up->setAxisX(axisX, line);
+
+
+    QValueAxis *axisY = new QValueAxis;
+    axisY->setRange(-200, 200);
+    axisY->setTickCount(17);
+    up->setAxisY(axisY, series_up);
+    up->setAxisY(axisY, line);
 
 
 
@@ -125,6 +134,7 @@ void MainWindow::on_pushButton_clicked()
     QChartView *view;
     view = new QChartView(up);
     view->chart()->setAnimationOptions(QChart::AllAnimations);
+    view->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
     layout->addWidget(view);
     dlg->setLayout(layout);
     dlg->resize(1000, 500);
@@ -140,16 +150,16 @@ void MainWindow::on_comboBox_currentIndexChanged(int index)
         ui->doubleSpinBox_4->setValue(0);
         ui->doubleSpinBox_5->setValue(0);
         ui->doubleSpinBox_6->setValue(0);
-        ui->spinBox->setValue(0);
-        ui->spinBox_2->setValue(0);
-        ui->doubleSpinBox_7->setValue(0);
+        ui->spinBox->setValue(1);
+        ui->spinBox_2->setValue(1);
+        ui->doubleSpinBox_7->setValue(1);
         ui->spinBox_7->setValue(1);
         ui->spinBox_14->setValue(1);
-        ui->spinBox_11->setValue(0);
+        ui->spinBox_11->setValue(1);
         ui->spinBox_3->setValue(1);
         ui->spinBox_10->setValue(1);
-        ui->spinBox_20->setValue(0);
-        ui->spinBox_21->setValue(0);
+        ui->spinBox_20->setValue(1);
+        ui->spinBox_21->setValue(1);
         ui->spinBox_22->setValue(1);
         return;
     }
