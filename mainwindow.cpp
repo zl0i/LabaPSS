@@ -37,7 +37,7 @@ void MainWindow::on_pushButton_clicked()
 
     qreal lamda_up = 3*pow(10, 8)/(ui->spinBox->value()*pow(10, 9));
 
-    qreal L0p = 20*log10(16*pow(pi, 2)*pow(d_up, 2)/pow(lamda_up, 2));
+    qreal L0p = 10*log10(16*pow(pi, 2)*pow(d_up*1000, 2)/pow(lamda_up, 2));
     ui->label_52->setText("l0р = -"+QString::number(L0p)+" дБ");
     qreal lamda_dw = 3*pow(10, 8)/(ui->spinBox_2->value()*pow(10, 9));
 
@@ -57,20 +57,20 @@ void MainWindow::on_pushButton_clicked()
 
     int t =  20*log10(k*Tsumm*ui->spinBox_11->value()*pow(10, 6));
     qreal Rpdr = (L0p+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprd*ui->spinBox_7->value()/100.0);
-    //Rpdr = Rpdr*10;
+    //Rpdr = Rpdr+4;
     ui->label_60->setText("Pпрд = " + QString::number(Rpdr) + " Вт");
 
     qreal last = 0;
     QPen pen;
-    pen.setColor(Qt::blue);
+    pen.setColor(Qt::red);
     pen.setCapStyle(Qt::RoundCap);
     pen.setStyle(Qt::DashLine);
     pen.setWidth(2);
 
 
     QLineSeries *line = new QLineSeries();
-    line->append(0, -100);
-    line->append(14, -100);
+    line->append(0, -90);
+    line->append(14, -90);
     line->setPen(pen);
     line->setName("Граница");
 
