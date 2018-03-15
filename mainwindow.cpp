@@ -37,7 +37,7 @@ void MainWindow::on_pushButton_clicked()
 
     qreal lamda_up = 3*pow(10, 8)/(ui->spinBox->value()*pow(10, 9));
 
-    qreal L0p = 10*log10(16*pow(pi, 2)*pow(d_up*1000, 2)/pow(lamda_up, 2));
+    qreal L0p = 20*log10(2*pi * d_up*1000/lamda_up);
     ui->label_52->setText("l0р = -"+QString::number(L0p)+" дБ");
     qreal lamda_dw = 3*pow(10, 8)/(ui->spinBox_2->value()*pow(10, 9));
 
@@ -60,6 +60,8 @@ void MainWindow::on_pushButton_clicked()
     //Rpdr = Rpdr+4;
     ui->label_60->setText("Pпрд = " + QString::number(Rpdr) + " Вт");
 
+     qreal Rprm = (L0p+Ldop-t+6+ui->doubleSpinBox_7->value())/(Gprm*ui->spinBox_14->value()/100.0);
+    qDebug() << Rprm;
     qreal last = 0;
     QPen pen;
     pen.setColor(Qt::red);
@@ -70,7 +72,7 @@ void MainWindow::on_pushButton_clicked()
 
     QLineSeries *line = new QLineSeries();
     line->append(0, -90);
-    line->append(14, -90);
+    line->append(31, -90);
     line->setPen(pen);
     line->setName("Граница");
 
@@ -96,15 +98,29 @@ void MainWindow::on_pushButton_clicked()
     series_up->append(11, last);
     last -= ui->spinBox_17->value()*(1-ui->spinBox_22->value()/100.0);
     series_up->append(14, last);
+    last += 90; //усиление ретрансялтора
+    series_up->append(17, last);
+    last -= ui->spinBox_18->value()*(1-ui->spinBox_22->value()/100.0);
+    series_up->append(20, last);
+    last += ui->spinBox_18->value();
+    series_up->append(21, last);
+    last -= (L0p + Ldop);
+    series_up->append(24, last);
+    last += Gprm;
+    series_up->append(25, last);
+    last -= Gprm * (1-(ui->spinBox_14->value()/100.0));
+    series_up->append(28, last);
+    last += Rprm;
+    series_up->append(31, last);
 
     QChart *up = new QChart();
-    up->setTitle("Диаграмма уровней мощности сигнала вверх");
+    up->setTitle("График уровней сигнала спутниковой линии связи");
     up->addSeries(line);
     up->addSeries(series_up);
     up->createDefaultAxes();
     QValueAxis *axisX = new QValueAxis;
     axisX->setTickCount(15);
-    axisX->setRange(0, 14);
+    axisX->setRange(0, 31);
     axisX->setLabelsVisible(false);
     up->setAxisX(axisX);
     up->axisY()->setRange(-200, 200);
